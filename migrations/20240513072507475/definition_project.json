@@ -1,0 +1,19 @@
+{
+  "moduleName": "ecom",
+  "tables": [],
+  "installedModules": [
+    {
+      "module": "serverpod",
+      "version": "20240115074235544"
+    },
+    {
+      "module": "serverpod_auth",
+      "version": "20240115074239642"
+    },
+    {
+      "module": "ecom",
+      "version": "20240513071332770"
+    }
+  ],
+  "migrationApiVersion": 1
+}
