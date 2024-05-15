@@ -85,8 +85,13 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    authenticationBloc.add(AppStarted());
+
     appLanguageCubit.loadAppLanguageFromLocalStorage();
+    if (sessionManager.isSignedIn) {
+      sessionManager.refreshSession();
+    }
+
+    authenticationBloc.add(AppStarted());
   }
 
   @override

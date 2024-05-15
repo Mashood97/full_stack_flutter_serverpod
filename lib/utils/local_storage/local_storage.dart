@@ -31,10 +31,10 @@ class LocalStorage {
   }
 
   Future<String> readAutoLoginKey() async {
-    return await _storageInstance.read(
+    var dt = await _storageInstance.read(
           key: _cacheAutoLoginKey,
-        ) ??
-        "false";
+        );
+    return dt ?? "false";
   }
 
   /*Clear whole app data from local storage*/

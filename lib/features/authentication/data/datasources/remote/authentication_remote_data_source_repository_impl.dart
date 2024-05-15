@@ -54,6 +54,9 @@ class AuthenticationRemoteDataSourceRepositoryImpl
   @override
   Future<void> logout() async {
     await localStorageInstance.clearLocalStorage();
+    if (sessionManager.isSignedIn) {
+      await sessionManager.signOut();
+    }
   }
 
   @override

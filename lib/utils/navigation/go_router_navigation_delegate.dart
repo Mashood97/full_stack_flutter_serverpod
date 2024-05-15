@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:ecom_flutter/features/authentication/presentation/pages/register_view.dart';
 import 'package:ecom_flutter/features/authentication/presentation/pages/verify_email_view.dart';
+import 'package:ecom_flutter/features/dashboard/presentation/pages/dashboard_view.dart';
 import 'package:ecom_flutter/utils/navigation/route_names.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -87,12 +88,8 @@ class GoRouterNavigationDelegate {
 
       GoRoute(
         path: NavigationRouteNames.homeRoute,
-        pageBuilder: (context, state) => NoTransitionPage(
-          child: Scaffold(
-            appBar: AppBar(
-              title: const Text("Home"),
-            ),
-          ),
+        pageBuilder: (context, state) => const NoTransitionPage(
+          child: DashboardView()
         ),
       ),
       // StatefulShellRoute.indexedStack(

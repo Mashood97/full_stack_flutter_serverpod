@@ -124,7 +124,11 @@ void _initializeUseCases() {
 
 void _initializeExternalPackages() {
   //local storage
-  const storage = FlutterSecureStorage();
+  const storage = FlutterSecureStorage(
+    aOptions: AndroidOptions(
+        encryptedSharedPreferences: true, sharedPreferencesName: "ecom_db"),
+    iOptions: IOSOptions(synchronizable: true, accountName: "ecom_db"),
+  );
   getItInstance.registerLazySingleton(() => storage);
 
   final localStorage = LocalStorage();
