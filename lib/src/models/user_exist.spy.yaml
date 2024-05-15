@@ -1,0 +1,7 @@
+class: UserExistModel
+
+fields:
+  email: String
+  isExist: bool
+  message: String
+  code: int

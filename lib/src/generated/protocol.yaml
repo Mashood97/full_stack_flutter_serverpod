@@ -1,2 +1,4 @@
+authenticationEndPoint:
+  - verifyUserExistByEmail:
 example:
   - hello:
