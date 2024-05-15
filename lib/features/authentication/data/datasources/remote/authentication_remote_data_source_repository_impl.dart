@@ -1,3 +1,4 @@
+import 'package:ecom_client/ecom_client.dart';
 import 'package:ecom_flutter/features/authentication/data/datasources/remote/authentication_remote_data_source_repository.dart';
 import 'package:serverpod_auth_email_flutter/serverpod_auth_email_flutter.dart';
 
@@ -17,15 +18,27 @@ class AuthenticationRemoteDataSourceRepositoryImpl
   @override
   Future<String> authenticate(
       {required String email, required String password}) async {
-    final response = await authController.signIn(email, password);
-
-    if (response != null) {
-      return response.userIdentifier;
-    }
-
-    throw ResponseError(
-      errorStatus: "We are unable to login, Please try again later.",
+    final UserExistModel userExists =
+        await client.authenticationEndPoint.verifyUserExistByEmail(
+      email: email,
+      isFromRegistration: false,
     );
+
+    if (userExists.isExist) {
+      final response = await authController.signIn(email, password);
+
+      if (response != null) {
+        return response.userIdentifier;
+      }
+
+      throw ResponseError(
+        errorStatus: "We are unable to login, Please try again later.",
+      );
+    } else {
+      throw ResponseError(
+        errorStatus: userExists.message,
+      );
+    }
   }
 
   @override
@@ -54,13 +67,20 @@ class AuthenticationRemoteDataSourceRepositoryImpl
       required String userName,
       required String password}) async {
     try {
-      final response =
-          await authController.createAccountRequest(userName, email, password);
-      return response;
-    } catch (_) {
-      throw ResponseError(
-        errorStatus: "We are unable to register, Please try again later.",
-      );
+      final UserExistModel userExists = await client.authenticationEndPoint
+          .verifyUserExistByEmail(email: email, isFromRegistration: true);
+
+      if (!userExists.isExist) {
+        final response = await authController.createAccountRequest(
+            userName, email, password);
+        return response;
+      } else {
+        throw ResponseError(
+          errorStatus: userExists.message,
+        );
+      }
+    } catch (e) {
+      rethrow;
     }
   }
 

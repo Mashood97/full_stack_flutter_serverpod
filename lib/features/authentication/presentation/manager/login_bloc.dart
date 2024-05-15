@@ -56,7 +56,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         );
 
         response.fold(
-          (error) => emit(LoginFailure(error: error.toString())),
+          (error) => emit(LoginFailure(error: error.errorStatus,)),
           (token) {
             authenticationBloc.add(LoggedIn(token: token));
             emit(const LoginInitial());

@@ -13,7 +13,11 @@ class AppSnackBar {
       backgroundColor: Colors.red.shade900,
       showCloseIcon: true,
       closeIconColor: Colors.white,
+      behavior: SnackBarBehavior.fixed,
+
     );
+
+
 
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
